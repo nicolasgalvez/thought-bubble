@@ -3,66 +3,15 @@ name: Build and Zip WordPress Plugin
 on:
   release:
     types: [published]
-  push:
-    branches:
-      - main
+
 jobs:
-  checkout:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      should_build: ${{ steps.check.outputs.should_build }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Determine if we should build (release only)
-        id: check
-        run: echo "::set-output name=should_build::${{ github.event_name == 'release' }}"
-
-      # Upload the code to be shared between jobs
-      - name: Upload code
-        uses: actions/upload-artifact@v2
-        with:
-          name: code
-          path: .
-
-  test:
-    needs: [checkout]
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-    steps:
-      # Download the code
-      - name: Download code
-        uses: actions/download-artifact@v2
-        with:
-          name: code
-          path: .
-
-      # Your test steps here, for example:
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Tests
-        run: npm test
-
-  build:
-    needs: [checkout]
-    runs-on: ubuntu-latest
-    if: needs.checkout.outputs.should_build == 'true'
-    steps:
-      # Download the code
-      - name: Download code
-        uses: actions/download-artifact@v2
-        with:
-          name: code
-          path: .
-
-      # Your existing build steps here
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -78,6 +27,14 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # Adjust to your project's PHP version
+
+      - name: Install Composer dependencies
+        run: composer install
 
       - name: Run wp-scripts plugin-zip
         run: npm run plugin-zip
