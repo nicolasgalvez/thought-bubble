@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "procyon/thought-bubble",
+  "version": "0.1.0",
+  "title": "LB Thought Bubble",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "A block that displays a CTA inside the hero cover block",
+  "example": {},
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true,
+      "link": true
+    }
+  },
+  "textdomain": "thought-bubble",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}
