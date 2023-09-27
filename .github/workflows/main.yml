@@ -3,11 +3,15 @@ name: Build and Zip WordPress Plugin
 on:
   release:
     types: [published]
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
-
+    outputs:
+      should_build: ${{ steps.check.outputs.should_build }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -15,19 +19,59 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '14'
 
       - name: Cache Node.js modules
         uses: actions/cache@v2
         with:
-          path: ~/.npm
+          path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install Dependencies
         run: npm install
 
+      - name: Determine if we should build (release only)
+        id: check
+        run: echo "::set-output name=should_build::${{ github.event_name == 'release' }}"
+
+      # Upload the code and node_modules to be shared between jobs
+      - name: Upload workspace
+        uses: actions/upload-artifact@v2
+        with:
+          name: workspace
+          path: |
+            .
+            !node_modules/.cache
+
+  test:
+    needs: [checkout]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      # Download the workspace
+      - name: Download workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace
+          path: .
+
+      # Your test steps here
+      - name: Run Tests
+        run: npm test
+
+  build:
+    needs: [checkout]
+    runs-on: ubuntu-latest
+    if: needs.checkout.outputs.should_build == 'true'
+    steps:
+      # Download the workspace
+      - name: Download workspace
+        uses: actions/download-artifact@v2
+        with:
+          name: workspace
+          path: .
+
+      # Push zip to a release
       - name: Run wp-scripts plugin-zip
         run: npm run plugin-zip
 
