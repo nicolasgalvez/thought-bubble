@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Cache Node.js modules
         uses: actions/cache@v2
@@ -39,3 +39,5 @@ jobs:
           asset_path: ./thought-bubble.zip
           asset_name: thought-bubble.zip
           asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
