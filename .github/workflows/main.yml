@@ -16,46 +16,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Install Dependencies
-        run: npm install
-
       - name: Determine if we should build (release only)
         id: check
         run: echo "::set-output name=should_build::${{ github.event_name == 'release' }}"
 
-      # Upload the code and node_modules to be shared between jobs
-      - name: Upload workspace
+      # Upload the code to be shared between jobs
+      - name: Upload code
         uses: actions/upload-artifact@v2
         with:
-          name: workspace
-          path: |
-            .
-            !node_modules/.cache
+          name: code
+          path: .
 
   test:
     needs: [checkout]
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     steps:
-      # Download the workspace
-      - name: Download workspace
+      # Download the code
+      - name: Download code
         uses: actions/download-artifact@v2
         with:
-          name: workspace
+          name: code
           path: .
 
-      # Your test steps here
+      # Your test steps here, for example:
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+
       - name: Run Tests
         run: npm test
 
@@ -64,14 +56,30 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.checkout.outputs.should_build == 'true'
     steps:
-      # Download the workspace
-      - name: Download workspace
+      # Download the code
+      - name: Download code
         uses: actions/download-artifact@v2
         with:
-          name: workspace
+          name: code
           path: .
 
-      # Push zip to a release
+      # Your existing build steps here
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Dependencies
+        run: npm install
+
       - name: Run wp-scripts plugin-zip
         run: npm run plugin-zip
 
