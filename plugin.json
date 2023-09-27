@@ -1,0 +1,8 @@
+{
+	"name" : "Thought Bubble",
+	"version" : "0.1.0",
+	"download_url" : "https://github.com/nicolasgalvez/thought-bubble/releases/download/test3/thought-bubble.zip",
+	"sections" : {
+		"description" : "Plugin description here. You can use HTML."
+	}
+}

@@ -4,7 +4,7 @@
  * Description:       A block that displays a CTA inside the hero cover block
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,6 +12,23 @@
  *
  * @package           procyon
  */
+require_once __DIR__ . '/vendor/autoload.php';
+
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/nicolasgalvez/thought-bubble/',
+	__FILE__, //Full path to the main plugin file or functions.php.
+	'thought-bubble'
+);
+
+$myUpdateChecker->getVcsApi()->enableReleaseAssets('/thought-bubble\.zip/');
+
+////Set the branch that contains the stable release.
+//$myUpdateChecker->setBranch( 'release' );
+
+//Optional: If you're using a private repository, specify the access token like this:
+//$myUpdateChecker->setAuthentication('your-token-here');
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
@@ -23,4 +40,5 @@
 function create_block_thought_bubble_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
+
 add_action( 'init', 'create_block_thought_bubble_block_init' );

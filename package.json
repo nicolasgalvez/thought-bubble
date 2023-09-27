@@ -5,6 +5,7 @@
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
+	"files": [ "vendor" ],
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
@@ -12,7 +13,9 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start"
+		"start": "wp-scripts start",
+		"test:e2e": "wp-scripts test-e2e --passWithNoTests",
+		"test:unit": "wp-scripts test-unit-js"
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^26.13.0"
