@@ -36,6 +36,9 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
+      - name: Build JS
+        run: npm run build
+
       - name: Run wp-scripts plugin-zip
         run: npm run plugin-zip
 
