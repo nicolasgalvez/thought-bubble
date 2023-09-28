@@ -16,19 +16,28 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-	'https://github.com/nicolasgalvez/thought-bubble/',
-	__FILE__, //Full path to the main plugin file or functions.php.
-	'thought-bubble'
-);
+/**
+ * Don't need to run this on ajax requests
+ */
+if ( ! is_ajax() && is_admin()) {
+	$myUpdateChecker = PucFactory::buildUpdateChecker(
+		'https://github.com/nicolasgalvez/thought-bubble/',
+		__FILE__, //Full path to the main plugin file or functions.php.
+		'thought-bubble'
+	);
 
-$myUpdateChecker->getVcsApi()->enableReleaseAssets('/thought-bubble\.zip/');
+
+	$myUpdateChecker->getVcsApi()->enableReleaseAssets( '/thought-bubble\.zip/' );
 
 ////Set the branch that contains the stable release.
-$myUpdateChecker->setBranch( 'main' );
+	$myUpdateChecker->setBranch( 'main' );
 
 //Optional: If you're using a private repository, specify the access token like this:
 //$myUpdateChecker->setAuthentication('your-token-here');
+
+	remove_filter( 'upgrader_source_selection', [ $myUpdateChecker, 'fixDirectoryName' ], 10 );
+}
+
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
