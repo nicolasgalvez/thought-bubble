@@ -5,7 +5,7 @@
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
-	"files": [ "vendor" ],
+	"files": [ "vendor", "build", "thought-bubble.php", "readme.txt", "plugin.json" ],
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
