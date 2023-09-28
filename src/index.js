@@ -5,7 +5,7 @@ import {
 	InnerBlocks,
 	InspectorControls
 } from '@wordpress/block-editor';
-import {Button, CheckboxControl, PanelBody} from '@wordpress/components';
+import {Button, CheckboxControl, PanelBody, ColorPicker} from '@wordpress/components';
 import {useBlockProps} from '@wordpress/block-editor';
 import './style.scss';
 
@@ -58,8 +58,8 @@ registerBlockType('procyon/thought-bubble', {
 				</InspectorControls>
 				{showBlock && (
 					<>
-
 						{imgURL && <img src={imgURL} alt="Thought Bubble Image"/>}
+						<div className="thought-bubble-content">
 						<RichText
 							tagName="p"
 							value={richTextContent}
@@ -70,6 +70,7 @@ registerBlockType('procyon/thought-bubble', {
 							templateLock="all"
 							template={[['core/button', {}]]}
 						/>
+						</div>
 					</>
 				)}
 			</div>
@@ -87,8 +88,10 @@ registerBlockType('procyon/thought-bubble', {
 			<div {...blockProps}>
 				<button style={{color: textColor}} className="thought-bubble-close">X</button>
 				{imgURL && <img src={imgURL} alt="Thought Bubble Image"/>}
+				<div className="thought-bubble-content">
 				<RichText.Content tagName="p" value={richTextContent}/>
 				<InnerBlocks.Content/>
+					</div>
 			</div>
 		);
 	},

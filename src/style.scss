@@ -17,9 +17,8 @@
 			margin-bottom: 0;
 		}
 	}
-	width: 800px;
-
 	display: flex;
+	gap: 10px;
 	justify-content: space-between;
 	position: fixed;
 	right: 8px;
@@ -28,25 +27,36 @@
 	bottom: 8px;
 	z-index: 2;
 	padding: 20px;
+
 	img {
 		width: 150px;
 		height: 150px;
 		object-fit: cover;
 	}
+
 	p {
-		max-width: 50%;
+		margin: 0;
 	}
+
 	.wp-block-button__link.wp-element-button {
 		white-space: nowrap;
+		margin: 0;
 	}
 	.thought-bubble-close {
 		color: inherit;
 		position: absolute;
-		top: 5px;
-		right: 5px;
+		top: 4px;
+		right: 4px;
 		background: none;
 		border: none;
 		font-size: 1rem;
 		cursor: pointer;
+	}
+	.thought-bubble-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 10px;
+		flex-grow: 1;
 	}
 }

@@ -19,7 +19,7 @@ use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 /**
  * Don't need to run this on ajax requests
  */
-if ( ! is_ajax() && is_admin()) {
+if ( ! wp_doing_ajax() && is_admin()) {
 	$myUpdateChecker = PucFactory::buildUpdateChecker(
 		'https://github.com/nicolasgalvez/thought-bubble/',
 		__FILE__, //Full path to the main plugin file or functions.php.
