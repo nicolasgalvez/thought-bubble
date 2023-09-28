@@ -4,7 +4,7 @@
  * Description:       A block that displays a CTA inside the hero cover block
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.1.1
+ * Version:           0.1.2
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,7 +25,7 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
 $myUpdateChecker->getVcsApi()->enableReleaseAssets('/thought-bubble\.zip/');
 
 ////Set the branch that contains the stable release.
-//$myUpdateChecker->setBranch( 'release' );
+$myUpdateChecker->setBranch( 'main' );
 
 //Optional: If you're using a private repository, specify the access token like this:
 //$myUpdateChecker->setAuthentication('your-token-here');
