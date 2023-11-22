@@ -45,6 +45,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
+= 0.1.4 =
+* Add cookie to hide thought bubble for 1 day
+
 = 0.1.2 =
 * Test update server
 

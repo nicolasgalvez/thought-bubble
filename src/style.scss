@@ -11,13 +11,16 @@
 		right: 0;
 		left: 0;
 		gap: 10px;
-		flex-wrap: wrap;
+		img {
+			margin: 10px;
+			float: left;
+		}
 		.wp-block-button__link.wp-element-button,
 		p {
 			margin-bottom: 0;
 		}
 	}
-	display: flex;
+	display: none; // use js to read the cookie before showing
 	gap: 10px;
 	justify-content: space-between;
 	position: fixed;
@@ -32,6 +35,8 @@
 		width: 150px;
 		height: 150px;
 		object-fit: cover;
+		margin: 10px;
+		float: left;
 	}
 
 	p {

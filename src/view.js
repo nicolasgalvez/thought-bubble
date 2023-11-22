@@ -19,6 +19,8 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
+import Cookies from 'js-cookie';
+
 
 /* eslint-disable no-console */
 console.log('Hello World! (from procyon-thought-bubble block)');
@@ -27,8 +29,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	const closeButtons = document.querySelectorAll('.thought-bubble-close');
 
 	closeButtons.forEach((button) => {
+		if(Cookies.get('thought-bubble') === 'closed') {
+			button.closest('.thought-bubble').style.display = 'none';
+			button.closest('.thought-bubble').style.visibility = 'hidden';
+			return;
+		} else {
+			button.closest('.thought-bubble').style.display = 'block';
+		}
+
 		button.addEventListener('click', function() {
 			this.closest('.thought-bubble').style.display = 'none';
+			button.closest('.thought-bubble').style.visibility = 'hidden';
+			Cookies.set('thought-bubble', 'closed', { expires: 1 })
 		});
 	});
 });

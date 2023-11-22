@@ -1,6 +1,6 @@
 {
 	"name" : "Thought Bubble",
-	"version" : "0.1.3",
+	"version" : "0.1.4",
 	"download_url" : "https://github.com/nicolasgalvez/thought-bubble/releases/latest/download/thought-bubble.zip",
 	"sections" : {
 		"description" : "A simple thought bubble for your website."

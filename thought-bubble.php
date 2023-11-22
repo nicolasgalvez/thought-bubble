@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:       LB Thought Bubble
- * Description:       A block that displays a CTA inside the hero cover block
+ * Description:       A block that displays a CTA at the bottom of the page.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.1.3
- * Author:            The WordPress Contributors
+ * Version:           0.1.4
+ * Author:            Nick Galvez
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       thought-bubble
