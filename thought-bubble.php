@@ -4,7 +4,7 @@
  * Description:       A block that displays a CTA at the bottom of the page.
  * Requires at least: 6.1
  * Requires PHP:      7.0
- * Version:           0.1.7
+ * Version:           0.1.6
  * Author:            Nick Galvez
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,26 +21,18 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-/**
- * Don't need to run this on ajax requests
- */
-if ( ! wp_doing_ajax() && is_admin()) {
-	$myUpdateChecker = PucFactory::buildUpdateChecker(
-		'https://github.com/nicolasgalvez/thought-bubble/',
-		__FILE__, //Full path to the main plugin file or functions.php.
-		'thought-bubble'
-	);
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/nicolasgalvez/thought-bubble/',
+	__FILE__, //Full path to the main plugin file or functions.php.
+	'thought-bubble'
+);
 
 
-	$myUpdateChecker->getVcsApi()->enableReleaseAssets();
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
-////Set the branch that contains the stable release.
-//	$myUpdateChecker->setBranch( 'main' );
-
-//Optional: If you're using a private repository, specify the access token like this:
-//$myUpdateChecker->setAuthentication('your-token-here');
-
-}
+//Set the branch that contains the stable release.
+$myUpdateChecker->setBranch( 'main' );
 
 
 /**
