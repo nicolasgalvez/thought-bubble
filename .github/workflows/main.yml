@@ -49,6 +49,7 @@ jobs:
       - name: Unzip the plugin # This is a workaround because the plugin-zip command doesn't place the files in a directory with the plugin name.
         run: |
           unzip $PLUGIN_NAME.zip -d $PLUGIN_NAME
+          rm $PLUGIN_NAME.zip
 
       - name: Re-zip the plugin # The WP updater expects the plugin files to be in a directory with the plugin name.
         run: zip -r $PLUGIN_NAME.zip $PLUGIN_NAME
