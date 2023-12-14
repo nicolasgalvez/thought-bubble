@@ -1,7 +1,7 @@
 === LB Thought Bubble ===
 Contributors:      Nick Galvez
 Tags:              block
-Tested up to:      6.3.1
+Tested up to:      6.3.2
 Stable tag:        0.1.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -44,6 +44,8 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 0.1.5 =
+* Change Github Action to prevent duplicate directories during update
 
 = 0.1.4 =
 * Add cookie to hide thought bubble for 1 day

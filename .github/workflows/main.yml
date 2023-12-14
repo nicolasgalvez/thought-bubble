@@ -1,5 +1,6 @@
 name: Build and Zip WordPress Plugin
-
+env:
+  PLUGIN_NAME: thought-bubble
 on:
   release:
     types: [published]
@@ -42,12 +43,19 @@ jobs:
       - name: Build JS
         run: npm run build
 
-      - name: Run wp-scripts plugin-zip
+      - name: Run wp-scripts plugin-zip # Use the wp-scripts command to create a zip with only the files needed.
         run: npm run plugin-zip
+
+      - name: Unzip the plugin # This is a workaround because the plugin-zip command doesn't place the files in a directory with the plugin name.
+        run: |
+          unzip $PLUGIN_NAME.zip -d $PLUGIN_NAME
+
+      - name: Re-zip the plugin # The WP updater expects the plugin files to be in a directory with the plugin name.
+        run: zip -r $PLUGIN_NAME.zip $PLUGIN_NAME
 
       - name: Create GitHub Release (if tag push)
         if: startsWith(github.ref, 'refs/tags/')
-        run: gh release create ${{ github.ref }} ./thought-bubble.zip -t ${{ github.ref }} -n "Release ${{ github.ref }}"
+        run: gh release create ${{ github.ref }} ./$PLUGIN_NAME.zip -t ${{ github.ref }} -n "Release ${{ github.ref }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -57,8 +65,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./thought-bubble.zip
-          asset_name: thought-bubble.zip
+          asset_path: ./$PLUGIN_NAME.zip
+          asset_name: $PLUGIN_NAME.zip
           asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -12,6 +12,11 @@
  *
  * @package           procyon
  */
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
@@ -35,7 +40,6 @@ if ( ! wp_doing_ajax() && is_admin()) {
 //Optional: If you're using a private repository, specify the access token like this:
 //$myUpdateChecker->setAuthentication('your-token-here');
 
-	remove_filter( 'upgrader_source_selection', [ $myUpdateChecker, 'fixDirectoryName' ], 10 );
 }
 
 

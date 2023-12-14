@@ -8,6 +8,7 @@ import {
 import {Button, CheckboxControl, PanelBody, ColorPicker} from '@wordpress/components';
 import {useBlockProps} from '@wordpress/block-editor';
 import './style.scss';
+import './editor.scss';
 
 registerBlockType('procyon/thought-bubble', {
 	apiVersion: 2,
@@ -79,11 +80,6 @@ registerBlockType('procyon/thought-bubble', {
 	save: function (props) {
 		const {attributes: {imgURL, richTextContent, showBlock, textColor}, className} = props;
 		const blockProps = useBlockProps.save({className});
-
-		if (!showBlock) {
-			return null;
-		}
-
 		return (
 			<div {...blockProps}>
 				<button style={{color: textColor}} className="thought-bubble-close">X</button>
