@@ -21,10 +21,6 @@
  */
 import Cookies from 'js-cookie';
 
-
-/* eslint-disable no-console */
-console.log('Hello World! (from procyon-thought-bubble block)');
-/* eslint-enable no-console */
 document.addEventListener('DOMContentLoaded', (event) => {
 	const closeButtons = document.querySelectorAll('.thought-bubble-close');
 

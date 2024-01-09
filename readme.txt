@@ -44,6 +44,9 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 2. This is the second screen shot
 
 == Changelog ==
+= 0.1.8 =
+* "Show Thought Bubble" toggle functionality added
+
 = 0.1.7 =
 * Change Github Action to prevent duplicate directories during update
 

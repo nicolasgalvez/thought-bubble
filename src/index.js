@@ -45,7 +45,7 @@ registerBlockType('procyon/thought-bubble', {
 							label="Display Block"
 							checked={showBlock}
 							onChange={(value) => setAttributes({showBlock: value})}
-							help="Show or hide this block on the frontend. Usefull for saving content ahead of time."
+							help="Show or hide this block on the frontend."
 						/>
 						<MediaUpload
 							onSelect={(media) => setAttributes({imgURL: media.url})}
@@ -59,18 +59,20 @@ registerBlockType('procyon/thought-bubble', {
 				</InspectorControls>
 				{showBlock && (
 					<>
-						{imgURL && <img src={imgURL} alt="Thought Bubble Image"/>}
-						<div className="thought-bubble-content">
-						<RichText
-							tagName="p"
-							value={richTextContent}
-							onChange={(value) => setAttributes({richTextContent: value})}
-						/>
-						<InnerBlocks
-							allowedBlocks={['core/button']}
-							templateLock="all"
-							template={[['core/button', {}]]}
-						/>
+						{imgURL &&
+							<img className={`thought-bubble-content ${showBlock ? '' : 'is-hidden'}`} src={imgURL}
+								 alt="Thought Bubble Image"/>}
+						<div className={`thought-bubble-content ${showBlock ? '' : 'is-hidden'}`}>
+							<RichText
+								tagName="p"
+								value={richTextContent}
+								onChange={(value) => setAttributes({richTextContent: value})}
+							/>
+							<InnerBlocks
+								allowedBlocks={['core/button']}
+								templateLock="all"
+								template={[['core/button', {}]]}
+							/>
 						</div>
 					</>
 				)}
@@ -80,14 +82,14 @@ registerBlockType('procyon/thought-bubble', {
 	save: function (props) {
 		const {attributes: {imgURL, richTextContent, showBlock, textColor}, className} = props;
 		const blockProps = useBlockProps.save({className});
-		return (
+		return showBlock && (
 			<div {...blockProps}>
 				<button style={{color: textColor}} className="thought-bubble-close">X</button>
 				{imgURL && <img src={imgURL} alt="Thought Bubble Image"/>}
 				<div className="thought-bubble-content">
-				<RichText.Content tagName="p" value={richTextContent}/>
-				<InnerBlocks.Content/>
-					</div>
+					<RichText.Content tagName="p" value={richTextContent}/>
+					<InnerBlocks.Content/>
+				</div>
 			</div>
 		);
 	},
