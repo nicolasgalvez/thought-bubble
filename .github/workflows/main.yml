@@ -7,6 +7,8 @@ on:
   push:
     tags:
       - 'v*'  # Trigger this workflow on push to tags like v1.0, v20.15.10 etc.
+    branches:
+      - 'gutenberg-19-6' # test branch with zip root fix
 
 jobs:
   build:
