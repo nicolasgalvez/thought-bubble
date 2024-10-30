@@ -7,6 +7,8 @@ on:
   push:
     tags:
       - 'v*'  # Trigger this workflow on push to tags like v1.0, v20.15.10 etc.
+    branches:
+      - 'gutenberg-19-6' # test branch with zip root fix
 
 jobs:
   build:
@@ -19,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Cache Node.js modules
         uses: actions/cache@v2
@@ -45,14 +47,6 @@ jobs:
 
       - name: Run wp-scripts plugin-zip # Use the wp-scripts command to create a zip with only the files needed.
         run: npm run plugin-zip
-
-      - name: Unzip the plugin # This is a workaround because the plugin-zip command doesn't place the files in a directory with the plugin name.
-        run: |
-          unzip $PLUGIN_NAME.zip -d $PLUGIN_NAME
-          rm $PLUGIN_NAME.zip
-
-      - name: Re-zip the plugin # The WP updater expects the plugin files to be in a directory with the plugin name.
-        run: zip -r $PLUGIN_NAME.zip $PLUGIN_NAME
 
       - name: Create GitHub Release (if tag push)
         if: startsWith(github.ref, 'refs/tags/')

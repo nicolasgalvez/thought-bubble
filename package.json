@@ -24,7 +24,7 @@
 		"test:unit": "wp-scripts test-unit-js"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^26.13.0"
+		"@wordpress/scripts": "^30.4.0"
 	},
 	"dependencies": {
 		"js-cookie": "^3.0.5"

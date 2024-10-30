@@ -31,3 +31,6 @@ node_modules/
 .DS_Store
 
 /vendor/
+
+# IDE settings
+.idea/
