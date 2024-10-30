@@ -46,14 +46,6 @@ jobs:
       - name: Run wp-scripts plugin-zip # Use the wp-scripts command to create a zip with only the files needed.
         run: npm run plugin-zip
 
-      - name: Unzip the plugin # This is a workaround because the plugin-zip command doesn't place the files in a directory with the plugin name.
-        run: |
-          unzip $PLUGIN_NAME.zip -d $PLUGIN_NAME
-          rm $PLUGIN_NAME.zip
-
-      - name: Re-zip the plugin # The WP updater expects the plugin files to be in a directory with the plugin name.
-        run: zip -r $PLUGIN_NAME.zip $PLUGIN_NAME
-
       - name: Create GitHub Release (if tag push)
         if: startsWith(github.ref, 'refs/tags/')
         run: gh release create ${{ github.ref }} ./$PLUGIN_NAME.zip -t ${{ github.ref }} -n "Release ${{ github.ref }}"
